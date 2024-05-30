@@ -1,34 +1,25 @@
 
 import Product from "../components/Product";
 import {Row,Col,Container} from "react-bootstrap";
+import productList from "../data/products"
+import axios from "axios";
+import { useState,useEffect } from "react";
 
-const productList = [
-    {   
-        id : 1,
-        title:"Lily",
-        description: "Lily are very great for natural healing",
-        image:"/images/flower.jpg"
-    },
-    {
-        id : 2,
-        title:"Rose",
-        description: "roses are red",
-        image:"/images/rose.avif"
-    },{
-        id : 3,
-        title:"Sunflower",
-        description : "sunflower always points to sun",
-        image: "/images/sunflower.avif"
-    }
-];
 
 function Home(){
+    const [data,setData] = useState([]);
+    useEffect(() => {
+        axios
+            .get("/api/products")
+            .then((resp) => setData(resp.data))
+            .catch((err) => console.log("Err",err));
+    },[]);
     return (
         <Container>
             <Row>
-               { productList.map((p) => (
+               { data.map((p) => (
                 <Col key={p.id}>
-               <Product title={p.title} pic={p.image} />
+               <Product product={p} />
                </Col>
                ))}
             </Row>

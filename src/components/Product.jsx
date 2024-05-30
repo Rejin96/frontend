@@ -1,14 +1,17 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import {Link} from "react-router-dom";
 
-function Product({title,pic,text}) {
+function Product({product}) {
   return (
     <Card style={{ width: '18rem' }}>
-      <Card.Img variant="top" src= {pic} />
+      <Card.Img variant="top" src= {product.image} />
       <Card.Body>
-        <Card.Title>{title}</Card.Title>
+        <Link to={`/product/${(product.id)}`}>
+         <Card.Title>{product.name}</Card.Title>
+        </Link>
         <Card.Text>
-          {text}
+          mosmos
         </Card.Text>
         <Button variant="primary">Go somewhere</Button>
       </Card.Body>
