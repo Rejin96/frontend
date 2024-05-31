@@ -1,7 +1,6 @@
 
 import Product from "../components/Product";
 import {Row,Col,Container} from "react-bootstrap";
-import productList from "../data/products"
 import axios from "axios";
 import { useState,useEffect } from "react";
 
@@ -18,7 +17,7 @@ function Home(){
         <Container>
             <Row>
                { data.map((p) => (
-                <Col key={p.id}>
+                <Col key={p._id}>
                <Product product={p} />
                </Col>
                ))}
