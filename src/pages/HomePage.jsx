@@ -3,9 +3,11 @@ import Product from "../components/Product";
 import {Row,Col,Container} from "react-bootstrap";
 import axios from "axios";
 import { useState,useEffect } from "react";
-
+import {useAuth} from '../hooks/useAuth'
 
 function Home(){
+    const {id} = useAuth();
+    console.log(id);
     const [data,setData] = useState([]);
     useEffect(() => {
         axios
