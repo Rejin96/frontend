@@ -3,8 +3,11 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { Container } from "react-bootstrap";
 import useLogin from "../hooks/useLogin";
+import { useAuth } from "../hooks/useAuth";
+import { Navigate } from "react-router-dom";
 
 function LoginForm() {
+  const {user} = useAuth()
   const {login} = useLogin();
 
   const handleSubmit = (e) => {
@@ -13,8 +16,11 @@ function LoginForm() {
   };
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  return (
-    <Container>
+  if(user){
+    return <Navigate to="/" />;
+  }else{
+    return(
+      <Container>
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>Email address</Form.Label>
@@ -39,7 +45,8 @@ function LoginForm() {
         </Button>
       </Form>
     </Container>
-  );
+    );
+  }
 }
 
 export default LoginForm;

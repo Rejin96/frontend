@@ -1,6 +1,8 @@
 import axios from "axios";
+import { useAuth } from "../hooks/useAuth"; 
 
 function useLogin() {
+  const {setUser} = useAuth();
   function login(email, password) {
     let data = {
       email,
@@ -9,7 +11,10 @@ function useLogin() {
     console.log(data);
     axios
       .post("/api/user/login", data)
-      .then((resp) => console.log(resp.data))
+      .then((resp) => {
+        localStorage.setItem("token",resp.data.token);
+        setUser(resp.data.token);
+    })
       .catch((err) => alert(err.response.data.error));
   }
   return { login };

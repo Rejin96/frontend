@@ -1,10 +1,16 @@
-import { createContext } from "react";
+import { createContext, useEffect , useState } from "react";
 
 export const AuthContext = createContext();
 
 function AuthProvider({ children }) {
-  let data = { id: 4 };
-  return <AuthContext.Provider value={data}>{children}</AuthContext.Provider>;
+  const [user,setUser] = useState(null);
+  useEffect(() =>{
+    let token = localStorage.getItem("token");
+    if(token){
+      setUser(token);
+    }
+  },[]);
+  return <AuthContext.Provider value={{user,setUser}}>{children}</AuthContext.Provider>;
 }
 
 export default AuthProvider;
