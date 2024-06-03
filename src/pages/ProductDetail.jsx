@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Row, Col, Container, Image, ListGroup, Badge } from "react-bootstrap";
+import { Row, Col, Container, Image, ListGroup, Badge, ListGroupItem,Button } from "react-bootstrap";
 import Ratings from "../components/Rating";
+import {useCart} from "../hooks/useCart";
 
 const ProductDetails = () => {
+  const{cart,dispatch} = useCart();
+  console.log(cart);
   const [product, setProduct] = useState({});
   const { productid } = useParams();
   useEffect(() => {
@@ -13,6 +16,19 @@ const ProductDetails = () => {
       .then((res) => setProduct(res.data))
       .catch((err) => console.log(err.message));
   }, []);
+
+  const addToCart = () => {
+    dispatch({
+      type: "ADD",
+      payload:{
+        _id:product._id,
+        image: product.image,
+        name: product.name,
+        price: product.price,
+      },
+    });
+  };
+
   return (
     <>
       <Container>
@@ -34,6 +50,9 @@ const ProductDetails = () => {
                   <Badge bg="danger">Out of Stock</Badge>
                 )}
                 <Ratings rating={product.rating} />
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <Button onClick={addToCart} disabled={product.countInStock == 0 }>ADD to cart</Button>
               </ListGroup.Item>
             </ListGroup>
           </Col>

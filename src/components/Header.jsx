@@ -4,11 +4,13 @@ import Navbar from "react-bootstrap/Navbar";
 import { FaOpencart } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import{useAuth} from "../hooks/useAuth";
-import { Button } from "react-bootstrap";
+import { Button,Badge } from "react-bootstrap";
+import {useCart} from "../hooks/useCart";
 
 
 function Header() {
   const {user,setUser}= useAuth();
+  const {cart} = useCart();
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
@@ -21,6 +23,7 @@ function Header() {
             <NavLink to="/cart" className="nav-link">
               <FaOpencart />
               <span style={{ marginLeft: "5px" }}>Cart</span>
+              {cart.length != 0 && <Badge bg="primary">{cart.length}</Badge>}
             </NavLink>
             { user ?(
               <Button 

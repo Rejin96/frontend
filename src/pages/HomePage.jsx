@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState,useEffect } from "react";
 
 
-function Home(){
+function Home(){ 
     const [data,setData] = useState([]);
     useEffect(() => {
         axios
