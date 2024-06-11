@@ -20,9 +20,17 @@ const reducer =(state,action) => {
             let qty = action.payload.qty;
             let _id = action.payload._id;
             let itemIdx = state.cart.findIndex((c) => c._id == _id);
-            newCart = {...state.cart};
-            newCart[indexIdx].qty = qty;
+            let newCart = [...state.cart];
+            newCart[itemIdx].qty = qty;
             return {...state,cart:newCart};
+
+        case "DELETE":
+            let itemId = action.payload;
+            console.log(itemId);
+            return {...state,cart: state.cart.filter((c) => c._id!= itemId)};
+
+        case "CLEAR":
+            return {...state,cart:[]};
     }
 };
 
